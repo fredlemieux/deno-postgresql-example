@@ -1,0 +1,14 @@
+#!/bin/bash
+echo "Starting dev environment..."
+
+# Install Denon which is the Nodemon equivalent in Deno for live reloading of the dev environment
+deno install --allow-read --allow-run --allow-write --allow-net -f -q --unstable https://deno.land/x/denon@2.3.1/denon.ts
+
+# Start server using Denon
+{
+    denon start 
+} || {
+    echo "Denon dev server start-up error, you are probably on Windows, my condolences"
+    # Git Bash in windows requires extension https://github.com/denoland/deno/issues/6239 https://github.com/denosaurs/denon/issues/62#issuecomment-642207799
+    denon.cmd start
+}
